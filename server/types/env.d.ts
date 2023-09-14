@@ -29,5 +29,11 @@ namespace Nodejs {
     EMAIL_PORT: string;
     EMAIL_USERNAME: string;
     EMAIL_PASSWORD: string;
+
+    DATABASE_HOSTNAME: string;
+    DATABASE_NAME: string;
+    DATABASE_USER: string;
+    DATABASE_PASSWORD: string;
+    DATABASE_PORT: string;
   }
 }

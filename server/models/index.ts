@@ -1,48 +1,79 @@
-'use strict';
+// // import { Knex } from 'knex';
 
-import fs from 'fs';
-import path from 'path';
-import * as Sequelize from 'sequelize';
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/database.js')[env];
+// // // Update with your config settings.
 
-const db: { [key: string]: any } = {};
+// // const config: { [key: string]: Knex.Config } = {
+// //   development: {
+// //     client: 'sqlite3',
+// //     connection: {
+// //       filename: './dev.sqlite3',
+// //     },
+// //   },
 
-let sequelize: any;
+// //   staging: {
+// //     client: 'postgresql',
+// //     connection: {
+// //       database: 'my_db',
+// //       user: 'username',
+// //       password: 'password',
+// //     },
+// //     pool: {
+// //       min: 2,
+// //       max: 10,
+// //     },
+// //     migrations: {
+// //       tableName: 'knex_migrations',
+// //     },
+// //   },
 
-sequelize = new Sequelize.Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config,
-);
+// //   production: {
+// //     client: 'postgresql',
+// //     connection: {
+// //       database: 'my_db',
+// //       user: 'username',
+// //       password: 'password',
+// //     },
+// //     pool: {
+// //       min: 2,
+// //       max: 10,
+// //     },
+// //     migrations: {
+// //       tableName: 'knex_migrations',
+// //     },
+// //   },
+// // };
 
-fs.readdirSync(__dirname)
-  .filter((file: string) => {
-    return (
-      (file.indexOf('.') !== 0 &&
-        file !== basename &&
-        file.slice(-3) === '.ts' &&
-        file.indexOf('.test.js') === -1) ||
-      (file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js')
-    );
-  })
-  .forEach((file: string) => {
-    const model = require(path.join(__dirname, file))(
-      sequelize,
-      Sequelize.DataTypes,
-    );
-    db[model.name] = model;
-  });
+// // module.exports = config;
 
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+// import dotenv from 'dotenv/config';
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// // dotenv.config()
 
-export default db;
+// export namespace Knex {
+//   export const config = {
+//     client: 'mysql',
+//     connection: {
+//       host: process.env.DATABASE_HOSTNAME,
+//       database: process.env.DATABASE_NAME,
+//       user: process.env.DATABASE_USERNAME,
+//       password: process.env.DATABASE_PASSWORD,
+//       port: process.env.DATABASE_PORT,
+//     },
+//     pool: {
+//       min: process.env.DATABASE_POOL_MIN,
+//       max: process.env.DATABASE_POOL_MAX,
+//       idle: process.env.DATABASE_POOL_IDLE,
+//     },
+//     migrations: {
+//       tableName: 'knex_migrations',
+//       directory: "./database/migrations",
+//     },
+
+//   };
+// }
+
+// export default Knex;
+import * as Knex from 'knex';
+import db, { databaseConfiguration } from '../config/database';
+
+export default databaseConfiguration;
