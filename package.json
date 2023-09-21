@@ -7,7 +7,9 @@
     "test": "jest",
     "dev": "nodemon ./server/index.ts",
     "start": "node ./build",
-    "knex": "knex --knexfile ./server/database/knexfile.ts"
+    "knex": "knex --knexfile ./server/database/knexfile.ts",
+        "build": "rm -rf ./build && tsc -p tsconfig.json",
+
   },
   "repository": {
     "type": "git",
