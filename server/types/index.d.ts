@@ -10,3 +10,5 @@ export interface uploadHandlerType {
   validationFunction: any;
   limit: number | null;
 }
+
+export type resourceTypes = 'image' | 'video' | 'raw' | 'auto';
