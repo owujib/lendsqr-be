@@ -6,14 +6,13 @@ import path from 'path';
 import ApiError from './utils/ApiError';
 import HttpStatusCode from './helpers/HttpsResponse';
 
-import testRoute from './routes/test.routes';
 import authRoute from './routes/auth.routes';
-import { uploadHelper } from './decorators/FileHandler';
-import Helper from './helpers';
-import logs, { Logger } from './config/logger';
-// const { logs } = require('./config/logger');
+import walletRoute from './routes/wallet.routes';
 
-import db from './models';
+import logs, { Logger } from './config/logger';
+import globalErrorHandler from './helpers/globalErrorHandler';
+import db from './database';
+
 process.env.TZ = 'Africa/Lagos';
 
 class Kernel {
@@ -48,28 +47,12 @@ class Kernel {
 
   routes() {
     this.app.use('/api/auth', authRoute);
-    this.app.use('/test', testRoute);
+    this.app.use('/api/wallet', walletRoute);
+
     this.app.get('/home', (req, res, next) =>
       res.status(200).json({
         nessage: 'hello',
       }),
-    );
-
-    this.app.post(
-      '/upload',
-      uploadHelper({
-        fields: [{ name: 'image', maxCount: 1 }],
-        validationFunction: Helper.requestFileValidation([
-          'image/jpeg',
-          'image/png',
-        ]),
-        limit: null,
-      }),
-      (req, res, next) => {
-        return res
-          .status(200)
-          .json({ files: (<any>req).files.image[0], file: req.file });
-      },
     );
   }
 
@@ -85,28 +68,16 @@ class Kernel {
     });
 
     /**global error handler */
-    this.app.use(
-      (err: ApiError, req: Request, res: Response, next: NextFunction) => {
-        err.statusCode =
-          err.statusCode || HttpStatusCode.HTTP_INTERNAL_SERVER_ERROR;
-        err.status = err.status || 'error';
-
-        return res.status(err.statusCode).json({
-          status: err.status,
-          message: err.message,
-          error: err.error,
-        });
-      },
-    );
+    this.app.use(globalErrorHandler);
   }
 
   databaseConnection() {
-    (async function () {
+    (async () => {
       try {
-        await db.sequelize.authenticate();
-        Logger.info('Database connection is successful');
+        await db.raw('select 1');
+        Logger.info('Knex connected to database - :)');
       } catch (error) {
-        Logger.error('Database connection error: ', error);
+        Logger.error(error);
       }
     })();
   }

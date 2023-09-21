@@ -21,29 +21,6 @@ cloudinary.config({
   secure: true,
 });
 export default class Helper {
-  static cloudinaryImageUploadMethod = async (
-    filePath: string,
-    resource_type: 'image' | 'video' | 'raw' | 'auto',
-    folder: string,
-  ): Promise<UploadApiResponse | UploadApiErrorResponse> =>
-    cloudinary.uploader.upload(filePath, { resource_type, folder });
-
-  static cloudinaryResourceUploadMethod = async (
-    filePath: string,
-  ): Promise<UploadApiResponse | UploadApiErrorResponse> =>
-    cloudinary.uploader.upload(filePath, { resource_type: 'auto' });
-
-  static cloudinaryRemoveImageMethod = async (
-    publicId: string,
-  ): Promise<UploadApiResponse | UploadApiErrorResponse> =>
-    cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
-
-  static cloudinaryRemoveResourceMethod = async (
-    publicId: string,
-    resource_type: 'image' | 'video' | 'raw' | 'auto',
-  ): Promise<UploadApiResponse | UploadApiErrorResponse> =>
-    cloudinary.uploader.destroy(publicId, { type: 'upload', resource_type });
-
   static signToken(payload: any): { token: string } {
     const token = jwt.sign(payload, (<any>process.env).APP_KEY, {
       expiresIn: (<any>process).env.JWT_EXPIRES_IN,
@@ -92,9 +69,6 @@ export default class Helper {
   static async correctPassword(inputPassword: string, userPassword: string) {
     return bcrypt.compareSync(inputPassword, userPassword);
   }
-  static async comparePin(inputPin: any, userPin: any) {
-    return bcrypt.compareSync(inputPin, userPin);
-  }
 
   static addDays(date: Date, days: number) {
     const result = new Date(date);
@@ -102,6 +76,7 @@ export default class Helper {
     return result;
   }
 
+  /**metnods for file uploads handler */
   static getPublicId(imageURL: string): string {
     const [, publicIdWithExtensionName] = imageURL.split('upload/');
     const extensionName = path.extname(publicIdWithExtensionName);

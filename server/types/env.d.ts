@@ -4,6 +4,7 @@ namespace Nodejs {
   interface ProcessEnv {
     NODE_ENV: string;
     PORT: string;
+    APP_KEY: string;
 
     UPLOADS_DIR: string;
 
@@ -35,5 +36,11 @@ namespace Nodejs {
     DATABASE_USER: string;
     DATABASE_PASSWORD: string;
     DATABASE_PORT: string;
+
+    TEST_DATABASE_HOSTNAME: string;
+    TEST_DATABASE_NAME: string;
+    TEST_DATABASE_USER: string;
+    TEST_DATABASE_PASSWORD: string;
+    TEST_DATABASE_PORT: string;
   }
 }
