@@ -8,8 +8,7 @@
     "dev": "nodemon ./server/index.ts",
     "start": "node ./build",
     "knex": "knex --knexfile ./server/database/knexfile.ts",
-    "build": "tsc -p tsconfig.json"
-
+    "build": "npm install && rm -rf ./build && tsc -p tsconfig.json"
   },
   "repository": {
     "type": "git",
