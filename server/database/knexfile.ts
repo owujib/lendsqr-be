@@ -2,16 +2,15 @@ import { Knex } from 'knex';
 import path from 'path';
 
 import dotenv from 'dotenv';
-dotenv.config({ path: path.resolve('.env') });
+dotenv.config({ path: path.resolve('../../.env') });
 // Update with your config settings.
 interface KnexConfig {
   [key: string]: Knex.Config;
 }
-console.log(process.env);
 
 export const config: KnexConfig = {
   development: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: process.env.DATABASE_HOSTNAME,
       port: Number(process.env.DATABASE_PORT),
@@ -26,9 +25,12 @@ export const config: KnexConfig = {
     migrations: {
       tableName: 'knex_migrations',
     },
+    seeds: {
+      directory: path.join(__dirname, 'seeds'),
+    },
   },
   test: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: process.env.TEST_DATABASE_HOSTNAME,
       port: Number(process.env.TEST_DATABASE_PORT),
@@ -49,7 +51,7 @@ export const config: KnexConfig = {
     },
   },
   production: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: process.env.DATABASE_HOSTNAME,
       port: Number(process.env.DATABASE_PORT),
@@ -63,6 +65,9 @@ export const config: KnexConfig = {
     },
     migrations: {
       tableName: 'knex_migrations',
+    },
+    seeds: {
+      directory: path.join(__dirname, 'seeds'),
     },
   },
 };

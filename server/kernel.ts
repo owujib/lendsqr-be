@@ -49,9 +49,9 @@ class Kernel {
     this.app.use('/api/auth', authRoute);
     this.app.use('/api/wallet', walletRoute);
 
-    this.app.get('/home', (req, res, next) =>
+    this.app.get('/', (req, res, next) =>
       res.status(200).json({
-        nessage: 'hello',
+        nessage: 'hello world :)',
       }),
     );
   }
