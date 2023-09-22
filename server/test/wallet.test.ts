@@ -1,7 +1,7 @@
 import request from 'supertest';
 
-import db from '../server/database';
-import app from '../server/kernel';
+import db from '../database';
+import app from '../kernel';
 
 // const User = require('../src/models/user');
 // const Transaction = require('../src/models/transaction');

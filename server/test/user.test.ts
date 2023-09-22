@@ -1,8 +1,8 @@
 import request from 'supertest';
 
-import db from '../server/database';
-import app from '../server/kernel';
-import User from '../server/models/User';
+import db from '../database';
+import app from '../kernel';
+import User from '../models/User';
 
 process.env.NODE_ENV = 'test';
 describe('Should Authenticate users', () => {
