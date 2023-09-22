@@ -7,6 +7,7 @@ dotenv.config({ path: path.resolve('.env') });
 interface KnexConfig {
   [key: string]: Knex.Config;
 }
+console.log(process.env);
 
 export const config: KnexConfig = {
   development: {
@@ -45,6 +46,23 @@ export const config: KnexConfig = {
     },
     seeds: {
       directory: path.join(__dirname, 'seeds'),
+    },
+  },
+  production: {
+    client: 'mysql',
+    connection: {
+      host: process.env.DATABASE_HOSTNAME,
+      port: Number(process.env.DATABASE_PORT),
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: 'knex_migrations',
     },
   },
 };
