@@ -4,7 +4,7 @@
   "description": "A bolier plate for expressjs, and sequelize using typescript",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test npm run knex migrate:unlock && jest",
     "dev": "nodemon ./server/index.ts",
     "start": "node ./build",
     "knex": "knex --knexfile ./server/database/knexfile.ts",

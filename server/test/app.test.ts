@@ -4,16 +4,23 @@ import db from '../database';
 import app from '../kernel';
 import User from '../models/User';
 
-process.env.NODE_ENV = 'test';
 describe('Should Authenticate users', () => {
   beforeAll(async () => {
+    app.set('NODE_ENV', 'test');
+
+    await db.migrate.rollback();
+    // await db.schema.dropTable('knex_migrations_lock');
     await db.migrate.latest();
     await db.seed.run();
   });
 
   afterAll(async () => {
     /**destroy db */
+    await db.migrate.rollback();
+    // await db.schema.dropTable('knex_migrations_lock');
     await db.destroy();
+
+    // await db.destroy();
   });
 
   describe('Create account', () => {
