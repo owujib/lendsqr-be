@@ -175,7 +175,7 @@ The API is deployed on Heroku and can be accessed at [https://favour-lendsqr-be-
 
 You can find the Postman collection for testing the API at the following URL:
 
-[Postman Collection](https://www.postman.com/owujib/workspace/b78f99b9-d339-4111-bc01-9c410c9b3008/share?collection=27213384-a9c1b3f5-085e-4ef4-ae02-9589ecd9a819&target=embed&selectedEnvironment=27213384-1004accb-7085-4041-931e-b3a15b7a2678)
+[Postman Collection](https://www.postman.com/owujib/workspace/public-workspace/collection/27213384-2a055288-4d51-4a76-93af-cc77e185894f?action=share&creator=27213384&active-environment=27213384-1004accb-7085-4041-931e-b3a15b7a2678)
 
 
 ---
