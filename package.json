@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test npm run knex migrate:unlock && jest",
     "dev": "nodemon ./server/index.ts",
-    "start": "node ./build",
+    "start": "NODE_ENV=production node ./build",
     "knex": "knex --knexfile ./server/database/knexfile.ts",
     "build": "npm install && rm -rf ./build && tsc -p tsconfig.json"
   },
